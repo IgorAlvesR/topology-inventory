@@ -4,10 +4,6 @@ import { ID } from '../valueObjects/ID';
 export default class CoreRouter extends Router {
   private routers: Router[] = [];
 
-  constructor(equipment: Router) {
-    super(equipment);
-  }
-
   getRouters() {
     return this.routers;
   }

@@ -4,7 +4,7 @@ import Location from '../valueObjects/Location';
 import { Model } from '../valueObjects/Model';
 
 export default class Equipment {
-  constructor(
+  protected constructor(
     private readonly id: ID,
     private model: Model,
     private ip: IP,

@@ -5,10 +5,6 @@ import LayerSwitch from './LayerSwitch';
 export default class EdgeRouter extends Router {
   private layerSwitches: LayerSwitch[] = [];
 
-  constructor(equipment: Router) {
-    super(equipment);
-  }
-
   getSwitches() {
     return this.layerSwitches;
   }
