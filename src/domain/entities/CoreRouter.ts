@@ -13,6 +13,9 @@ export default class CoreRouter extends Router {
   }
 
   addRouter(router: Router): void {
+    if (!(router instanceof Router)) {
+      throw new Error('Esse equipamento deve ser um Router.');
+    }
     if (this.routerExistsInTheList(router.getId())) {
       throw new Error('O roteador já está no inventário de topologia de rede.');
     }
