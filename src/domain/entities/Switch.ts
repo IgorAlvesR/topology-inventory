@@ -24,12 +24,6 @@ export default class Switch extends Equipment {
     this.networks.push(network);
   }
 
-  private existsNetwork(network: Network) {
-    return this.networks.some(
-      (it) => it.name === network.name || it.ip === network.ip,
-    );
-  }
-
   removeNetwork(ip: IP) {
     const filteredNetwork = this.networks.filter(
       (network) => network.ip !== ip,
