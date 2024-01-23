@@ -1,6 +1,6 @@
-import Location from '../valueObjects/Location';
-import EdgeRouter from './EdgeRouter';
-import Switch from './Switch';
+import Location from '../../valueObjects/Location';
+import EdgeRouter from '../EdgeRouter';
+import Switch from '../Switch';
 
 test('deve retornar o id do switch adiconado', () => {
   const edgeRouter = new EdgeRouter(

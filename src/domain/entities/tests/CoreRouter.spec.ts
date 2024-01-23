@@ -1,6 +1,6 @@
-import Location from '../valueObjects/Location';
-import CoreRouter from './CoreRouter';
-import EdgeRouter from './EdgeRouter';
+import Location from '../../valueObjects/Location';
+import CoreRouter from '../CoreRouter';
+import EdgeRouter from '../EdgeRouter';
 
 function buildCoreRouter1() {
   const coreRouter1 = new CoreRouter(

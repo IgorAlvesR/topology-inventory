@@ -4,7 +4,8 @@ import Location from '../valueObjects/Location';
 import { Model } from '../valueObjects/Model';
 import Network from '../valueObjects/Network';
 import Equipment from './Equipment';
-import ExistsNetwork from './ExistsNetwork';
+import ExistsNetwork from './roles/ExistsNetwork';
+import HasPortsAvailable from './roles/HasPortsAvailable';
 
 export default class Switch extends Equipment {
   private networks: Network[] = [];
@@ -21,6 +22,10 @@ export default class Switch extends Equipment {
 
   addNetwork(network: Network) {
     new ExistsNetwork(this.networks, network).passOrThrow();
+    new HasPortsAvailable(
+      this.networks.length,
+      this.getNumberOfPorts(),
+    ).passOrThrow();
     this.networks.push(network);
   }
 

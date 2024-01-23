@@ -1,4 +1,4 @@
-import Network from '../valueObjects/Network';
+import Network from '../../valueObjects/Network';
 import { AbstractRule } from './AbstractRule';
 
 export default class ExistsNetwork extends AbstractRule {
