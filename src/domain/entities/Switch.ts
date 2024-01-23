@@ -5,7 +5,7 @@ import { Model } from '../valueObjects/Model';
 import Network from '../valueObjects/Network';
 import Equipment from './Equipment';
 
-export default class LayerSwitch extends Equipment {
+export default class Switch extends Equipment {
   private networks: Network[] = [];
 
   constructor(

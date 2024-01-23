@@ -1,21 +1,21 @@
 import Router from './Router';
 import { ID } from '../valueObjects/ID';
-import LayerSwitch from './LayerSwitch';
+import Switch from './Switch';
 
 export default class EdgeRouter extends Router {
-  private layerSwitches: LayerSwitch[] = [];
+  private Switches: Switch[] = [];
 
   getSwitches() {
-    return this.layerSwitches;
+    return this.Switches;
   }
 
-  addSwitch(layerSwitch: LayerSwitch): void {
-    this.layerSwitches.push(layerSwitch);
+  addSwitch(Switch: Switch): void {
+    this.Switches.push(Switch);
   }
 
   removeSwitch(id: ID) {
-    this.layerSwitches = this.layerSwitches.filter(
-      (layerSwitch) => layerSwitch.getId() !== id,
+    this.Switches = this.Switches.filter(
+      (Switch) => Switch.getId() !== id,
     );
   }
 }
