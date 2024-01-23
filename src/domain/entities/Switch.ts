@@ -4,6 +4,7 @@ import Location from '../valueObjects/Location';
 import { Model } from '../valueObjects/Model';
 import Network from '../valueObjects/Network';
 import Equipment from './Equipment';
+import ExistsNetwork from './ExistsNetwork';
 
 export default class Switch extends Equipment {
   private networks: Network[] = [];
@@ -18,8 +19,15 @@ export default class Switch extends Equipment {
     super(id, model, ip, numberOfPorts, location);
   }
 
-  addNetworks(network: Network[]) {
-    this.networks.push(...network);
+  addNetwork(network: Network) {
+    new ExistsNetwork(this.networks, network).passOrThrow();
+    this.networks.push(network);
+  }
+
+  private existsNetwork(network: Network) {
+    return this.networks.some(
+      (it) => it.name === network.name || it.ip === network.ip,
+    );
   }
 
   removeNetwork(ip: IP) {
