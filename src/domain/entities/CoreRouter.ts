@@ -1,5 +1,6 @@
 import Router from './Router';
 import { ID } from '../valueObjects/ID';
+import ShouldBeIpRange from './roles/ShouldBeEqualIpRange';
 
 export default class CoreRouter extends Router {
   private routers: Router[] = [];
@@ -9,24 +10,8 @@ export default class CoreRouter extends Router {
   }
 
   addRouter(router: Router): void {
-    if (!(router instanceof Router)) {
-      throw new Error('Esse equipamento deve ser um Router.');
-    }
-    if (this.routerExistsInTheList(router.getId())) {
-      throw new Error('O roteador já está no inventário de topologia de rede.');
-    }
-    if (this.routerItself(router.getId())) {
-      throw new Error('O roteador não pode inserir a si mesmo.');
-    }
+    new ShouldBeIpRange(this.getIp(), router.getIp()).passOrThrow();
     this.routers.push(router);
-  }
-
-  private routerExistsInTheList(routerId: string) {
-    return this.routers.some((routerList) => routerList.getId() === routerId);
-  }
-
-  private routerItself(routerId: string) {
-    return this.getId() === routerId;
   }
 
   removeRouter(id: ID) {
