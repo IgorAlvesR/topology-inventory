@@ -4,8 +4,8 @@ import Location from '../valueObjects/Location';
 import { Model } from '../valueObjects/Model';
 import Network from '../valueObjects/Network';
 import Equipment from './Equipment';
-import ExistsNetwork from './roles/ExistsNetwork';
-import HasPortsAvailable from './roles/HasPortsAvailable';
+import ExistsNetwork from './rules/ExistsNetwork';
+import HasPortsAvailable from './rules/HasPortsAvailableRule';
 
 export default class Switch extends Equipment {
   private networks: Network[] = [];

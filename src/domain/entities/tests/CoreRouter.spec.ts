@@ -57,7 +57,7 @@ test('não deve permitir adicionar um router com faixa de ip diferente', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1');
   const edgeRouter = buildEdgeRouter1('20.0.0.1');
   expect(() => coreRouter1.addRouter(edgeRouter)).toThrow(
-    'A faixa de ip do router adicionado é inválida.',
+    'A faixa de ip do equipamento adicionado é inválida.',
   );
 });
 

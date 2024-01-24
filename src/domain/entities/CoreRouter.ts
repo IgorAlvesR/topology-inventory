@@ -1,7 +1,7 @@
 import Router from './Router';
 import { ID } from '../valueObjects/ID';
-import ShouldBeIpRange from './roles/ShouldBeEqualIpRange';
-import HasPortsAvailable from './roles/HasPortsAvailable';
+import HasPortsAvailableRule from './rules/HasPortsAvailableRule';
+import IsIpInRangeRule from './rules/IsIpInRangeRule';
 
 export default class CoreRouter extends Router {
   private routers: Router[] = [];
@@ -11,8 +11,8 @@ export default class CoreRouter extends Router {
   }
 
   addRouter(router: Router): void {
-    new ShouldBeIpRange(this.getIp(), router.getIp()).passOrThrow();
-    new HasPortsAvailable(
+    new IsIpInRangeRule(this.getIp(), router.getIp()).passOrThrow();
+    new HasPortsAvailableRule(
       this.routers.length,
       this.getNumberOfPorts(),
     ).passOrThrow();

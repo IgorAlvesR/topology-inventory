@@ -1,15 +1,15 @@
 import { AbstractRule } from './AbstractRule';
 
-export default class HasPortsAvailable extends AbstractRule {
+export default class HasPortsAvailableRule extends AbstractRule {
   constructor(
-    readonly equipmentsLength: number,
+    readonly numberOfPortsUsed: number,
     readonly numberOfPorts: number,
   ) {
     super();
   }
 
   isSatisfied(): boolean {
-    return this.equipmentsLength < this.numberOfPorts;
+    return this.numberOfPortsUsed < this.numberOfPorts;
   }
 
   protected createError(): Error {

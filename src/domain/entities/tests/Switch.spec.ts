@@ -18,7 +18,7 @@ test('não deve adicionar um switch com redes que tem o mesmo nome', () => {
   const network02 = new Network('nw01', '20.0.0.1', 8);
   switch01.addNetwork(network01);
   expect(() => switch01.addNetwork(network02)).toThrow(
-    'Não é permitido adicionar redes duplicadas no mesmo switch.',
+    'Não é permitido adicionar redes duplicadas.',
   );
 });
 
@@ -28,7 +28,7 @@ test('não deve adicionar um switch com redes que tem o mesmo ip', () => {
   const network02 = new Network('nw02', '20.0.0.1', 8);
   switch01.addNetwork(network01);
   expect(() => switch01.addNetwork(network02)).toThrow(
-    'Não é permitido adicionar redes duplicadas no mesmo switch.',
+    'Não é permitido adicionar redes duplicadas.',
   );
 });
 
