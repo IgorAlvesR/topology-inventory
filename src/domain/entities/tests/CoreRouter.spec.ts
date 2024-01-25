@@ -66,7 +66,7 @@ test('não deve permitir adicionar um router com faixa de ip diferente', () => {
   );
 });
 
-test('não deve permitir adicionar mais redes do que a quantidade de portas do switch', () => {
+test('não deve permitir adicionar mais equipamentos do que a quantidade de portas do roteador', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1', 2);
   const edgeRouter01 = buildEdgeRouter1('10.0.0.1');
   const edgeRouter02 = buildEdgeRouter1('10.0.0.1');
