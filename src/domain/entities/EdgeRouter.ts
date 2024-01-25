@@ -1,14 +1,14 @@
 import Router from './Router';
 import Switch from './Switch';
-import HasNetworkOnSwitch from './rules/HasNetworkOnSwitch';
+import HasNetworkOnSwitch from './rules/IsSwitchEmptyRule';
 import HasPortsAvailableRule from './rules/HasPortsAvailableRule';
-import IsIpInRangeRule from './rules/IsIpInRangeRule';
+import IsIpInRangeRule from './rules/IsIpAvailableRule';
 
 export default class EdgeRouter extends Router {
   private switches: Switch[] = [];
 
-  getEquipments() {
-    return this.switches;
+  getEquipments(): Switch[] {
+    return [...this.switches];
   }
 
   addSwitch(_switch: Switch): void {
@@ -20,7 +20,7 @@ export default class EdgeRouter extends Router {
     this.switches.push(_switch);
   }
 
-  removeSwitch(sw: Switch) {
+  removeSwitch(sw: Switch): void {
     new HasNetworkOnSwitch(sw).passOrThrow();
     this.switches = this.switches.filter((it) => it.getId() !== sw.getId());
   }

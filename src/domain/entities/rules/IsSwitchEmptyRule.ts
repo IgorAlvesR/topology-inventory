@@ -1,7 +1,7 @@
 import Switch from '../Switch';
 import { AbstractRule } from './AbstractRule';
 
-export default class HasNetworkOnSwitch extends AbstractRule {
+export default class IsSwitchEmptyRule extends AbstractRule {
   constructor(readonly sw: Switch) {
     super();
   }

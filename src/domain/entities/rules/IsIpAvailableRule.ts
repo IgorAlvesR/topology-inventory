@@ -1,7 +1,7 @@
 import { IP } from 'src/domain/valueObjects/IP';
 import { AbstractRule } from './AbstractRule';
 
-export default class IsIpInRangeRule extends AbstractRule {
+export default class IsIpAvailableRule extends AbstractRule {
   constructor(
     readonly equipmentIp: IP,
     readonly equipmentIpToBeAdded: IP,
@@ -10,7 +10,7 @@ export default class IsIpInRangeRule extends AbstractRule {
   }
 
   isSatisfied(): boolean {
-    return this.equipmentIp === this.equipmentIpToBeAdded;
+    return this.equipmentIp !== this.equipmentIpToBeAdded;
   }
 
   protected createError(): Error {

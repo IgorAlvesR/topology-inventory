@@ -44,23 +44,23 @@ function buildSwitch() {
 
 test('deve adicionar um roteador CoreRouter', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1');
-  const coreRouter2 = buildCoreRouter2('10.0.0.1');
+  const coreRouter2 = buildCoreRouter2('10.0.0.2');
   coreRouter1.addRouter(coreRouter2);
   expect(coreRouter1.getEquipments()).toHaveLength(1);
 });
 
 test('deve adicionar dois roteadores, um EdgeRouter e um CoreRouter', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1');
-  const coreRouter2 = buildCoreRouter2('10.0.0.1');
-  const edgeRouter = buildEdgeRouter1('10.0.0.1');
+  const coreRouter2 = buildCoreRouter2('10.0.0.2');
+  const edgeRouter = buildEdgeRouter1('10.0.0.3');
   coreRouter1.addRouter(edgeRouter);
   coreRouter1.addRouter(coreRouter2);
   expect(coreRouter1.getEquipments()).toHaveLength(2);
 });
 
-test('não deve permitir adicionar um router com faixa de ip diferente', () => {
+test('não deve permitir adicionar um router com faixa de ip igual', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1');
-  const edgeRouter = buildEdgeRouter1('20.0.0.1');
+  const edgeRouter = buildEdgeRouter1('10.0.0.1');
   expect(() => coreRouter1.addRouter(edgeRouter)).toThrow(
     'A faixa de ip do equipamento adicionado é inválida.',
   );
@@ -68,9 +68,9 @@ test('não deve permitir adicionar um router com faixa de ip diferente', () => {
 
 test('não deve permitir adicionar mais equipamentos do que a quantidade de portas do roteador', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1', 2);
-  const edgeRouter01 = buildEdgeRouter1('10.0.0.1');
-  const edgeRouter02 = buildEdgeRouter1('10.0.0.1');
-  const coreRouter02 = buildCoreRouter1('10.0.0.1');
+  const edgeRouter01 = buildEdgeRouter1('10.0.0.2');
+  const edgeRouter02 = buildEdgeRouter1('10.0.0.3');
+  const coreRouter02 = buildCoreRouter1('10.0.0.4');
   coreRouter1.addRouter(edgeRouter01);
   coreRouter1.addRouter(edgeRouter02);
   expect(() => coreRouter1.addRouter(coreRouter02)).toThrow(
@@ -80,9 +80,9 @@ test('não deve permitir adicionar mais equipamentos do que a quantidade de port
 
 test('não deve permitir remover um router que tem outros equipamentos conectados', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1', 2);
-  const coreRouter2 = buildCoreRouter2('10.0.0.1');
-  const edgeRouter01 = buildEdgeRouter1('10.0.0.1');
-  const edgeRouter02 = buildEdgeRouter1('10.0.0.1');
+  const coreRouter2 = buildCoreRouter2('10.0.0.2');
+  const edgeRouter01 = buildEdgeRouter1('10.0.0.3');
+  const edgeRouter02 = buildEdgeRouter1('10.0.0.4');
   const sw1 = buildSwitch();
   coreRouter1.addRouter(edgeRouter01);
   coreRouter1.addRouter(coreRouter2);
@@ -95,7 +95,7 @@ test('não deve permitir remover um router que tem outros equipamentos conectado
 
 test('permite remover um roteador que não tenha equipamentos conectados', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1', 2);
-  const edgeRouter01 = buildEdgeRouter1('10.0.0.1');
+  const edgeRouter01 = buildEdgeRouter1('10.0.0.2');
   coreRouter1.addRouter(edgeRouter01);
   expect(coreRouter1.getEquipments()).toHaveLength(1);
   coreRouter1.removeRouter(edgeRouter01);

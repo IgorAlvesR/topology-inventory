@@ -1,7 +1,7 @@
 import Router from '../Router';
 import { AbstractRule } from './AbstractRule';
 
-export default class HasEquipmentsConnectedToRouterRule extends AbstractRule {
+export default class IsRouterEmptyRule extends AbstractRule {
   constructor(readonly router: Router) {
     super();
   }

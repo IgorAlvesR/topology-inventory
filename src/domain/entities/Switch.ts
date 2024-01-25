@@ -4,7 +4,7 @@ import Location from '../valueObjects/Location';
 import { Model } from '../valueObjects/Model';
 import Network from '../valueObjects/Network';
 import Equipment from './Equipment';
-import ExistsNetwork from './rules/ExistsNetwork';
+import ExistsNetwork from './rules/IsNetworkAvailableRule';
 import HasPortsAvailable from './rules/HasPortsAvailableRule';
 
 export default class Switch extends Equipment {
@@ -21,7 +21,7 @@ export default class Switch extends Equipment {
   }
 
   getNetworks() {
-    return this.networks;
+    return [...this.networks];
   }
 
   addNetwork(network: Network) {

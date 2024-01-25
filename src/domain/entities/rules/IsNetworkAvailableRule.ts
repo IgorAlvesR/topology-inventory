@@ -1,7 +1,7 @@
 import Network from '../../valueObjects/Network';
 import { AbstractRule } from './AbstractRule';
 
-export default class ExistsNetwork extends AbstractRule {
+export default class IsNetworkAvailableRule extends AbstractRule {
   constructor(
     readonly networks: Network[],
     readonly networkToBeAdded: Network,

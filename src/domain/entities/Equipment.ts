@@ -12,35 +12,15 @@ export default class Equipment {
     private location: Location,
   ) {}
 
-  getModel() {
-    return this.model;
-  }
-
-  setModel(model: Model) {
-    this.model = model;
-  }
-
-  getIp() {
+  getIp(): IP {
     return this.ip;
   }
 
-  setIp(ip: IP) {
-    this.ip = ip;
-  }
-
-  getLocation() {
-    return this.location;
-  }
-
-  setLocation(location: Location) {
-    this.location = location;
-  }
-
-  getNumberOfPorts() {
+  getNumberOfPorts(): number {
     return this.numberOfPorts;
   }
 
-  getId() {
+  getId(): ID {
     return this.id;
   }
 }
