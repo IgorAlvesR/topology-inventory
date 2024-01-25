@@ -10,7 +10,7 @@ test('deve retornar o id do switch adiconado', () => {
     15,
     new Location(123, 321),
   );
-  const Switch1 = new Switch(
+  const _switch1 = new Switch(
     'sw1',
     'modelo1',
     '192.168.0.0',
@@ -18,6 +18,6 @@ test('deve retornar o id do switch adiconado', () => {
     new Location(123, 31),
   );
 
-  edgeRouter.addSwitch(Switch1);
-  expect(edgeRouter.getSwitches()).toHaveLength(1);
+  edgeRouter.addSwitch(_switch1);
+  expect(edgeRouter.getEquipments()).toHaveLength(1);
 });

@@ -4,7 +4,7 @@ import Location from '../valueObjects/Location';
 import { Model } from '../valueObjects/Model';
 import Equipment from './Equipment';
 
-export default class Router extends Equipment {
+export default abstract class Router extends Equipment {
   constructor(
     id: ID,
     model: Model,
@@ -14,4 +14,6 @@ export default class Router extends Equipment {
   ) {
     super(id, model, ip, numberOfPorts, location);
   }
+
+  abstract getEquipments(): Equipment[];
 }

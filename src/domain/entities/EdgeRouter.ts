@@ -1,19 +1,20 @@
 import Router from './Router';
-import { ID } from '../valueObjects/ID';
 import Switch from './Switch';
 
 export default class EdgeRouter extends Router {
   private switches: Switch[] = [];
 
-  getSwitches() {
+  getEquipments() {
     return this.switches;
   }
 
-  addSwitch(Switch: Switch): void {
-    this.switches.push(Switch);
+  addSwitch(_switch: Switch): void {
+    this.switches.push(_switch);
   }
 
-  removeSwitch(id: ID) {
-    this.switches = this.switches.filter((it) => it.getId() !== id);
+  removeSwitch(_switch: Switch) {
+    this.switches = this.switches.filter(
+      (it) => it.getId() !== _switch.getId(),
+    );
   }
 }

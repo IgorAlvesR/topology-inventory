@@ -1,12 +1,12 @@
 import Router from './Router';
-import { ID } from '../valueObjects/ID';
 import HasPortsAvailableRule from './rules/HasPortsAvailableRule';
 import IsIpInRangeRule from './rules/IsIpInRangeRule';
+import HasEquipmentsConnectedToRouterRule from './rules/HasEquipmentsConnectedToRouterRule';
 
 export default class CoreRouter extends Router {
   private routers: Router[] = [];
 
-  getRouters() {
+  getEquipments() {
     return this.routers;
   }
 
@@ -19,7 +19,8 @@ export default class CoreRouter extends Router {
     this.routers.push(router);
   }
 
-  removeRouter(id: ID) {
-    this.routers = this.routers.filter((router) => router.getId() !== id);
+  removeRouter(router: Router) {
+    new HasEquipmentsConnectedToRouterRule(router).passOrThrow();
+    this.routers = this.routers.filter((it) => it.getId() !== router.getId());
   }
 }
