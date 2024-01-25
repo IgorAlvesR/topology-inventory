@@ -20,6 +20,10 @@ export default class Switch extends Equipment {
     super(id, model, ip, numberOfPorts, location);
   }
 
+  getNetworks() {
+    return this.networks;
+  }
+
   addNetwork(network: Network) {
     new ExistsNetwork(this.networks, network).passOrThrow();
     new HasPortsAvailable(

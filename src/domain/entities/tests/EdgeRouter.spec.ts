@@ -2,6 +2,7 @@ import { IP } from 'src/domain/valueObjects/IP';
 import Location from '../../valueObjects/Location';
 import EdgeRouter from '../EdgeRouter';
 import Switch from '../Switch';
+import Network from '../../valueObjects/Network';
 
 function buildEdgeRouter1(ip: IP, ports: number = 10) {
   const edgeRouter = new EdgeRouter(
@@ -43,4 +44,27 @@ test('não deve permitir adicionar mais equipamentos do que a quantidade de port
   expect(() => edgeRouter01.addSwitch(sw3)).toThrow(
     'Excedeu a capacidade de portas do equipamento',
   );
+});
+
+test('não deve permitir remover um switch que tenha redes', () => {
+  const edgeRouter01 = buildEdgeRouter1('10.0.0.1', 2);
+  const sw1 = buildSwitch();
+  const network = new Network('nw01', '10.0.0.1', 8);
+  sw1.addNetwork(network);
+  edgeRouter01.addSwitch(sw1);
+  expect(() => edgeRouter01.removeSwitch(sw1)).toThrow(
+    'Não é possível remover um switch que possui redes.',
+  );
+});
+
+test('deve permitir remover um switch de um edge router', () => {
+  const edgeRouter01 = buildEdgeRouter1('10.0.0.1', 2);
+  const sw1 = buildSwitch();
+  const network = new Network('nw01', '10.0.0.1', 8);
+  sw1.addNetwork(network);
+  edgeRouter01.addSwitch(sw1);
+  sw1.removeNetwork(network.ip);
+  expect(edgeRouter01.getEquipments()).toHaveLength(1);
+  edgeRouter01.removeSwitch(sw1);
+  expect(edgeRouter01.getEquipments()).toHaveLength(0);
 });

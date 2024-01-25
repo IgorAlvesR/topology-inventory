@@ -1,5 +1,6 @@
 import Router from './Router';
 import Switch from './Switch';
+import HasNetworkOnSwitch from './rules/HasNetworkOnSwitch';
 import HasPortsAvailableRule from './rules/HasPortsAvailableRule';
 import IsIpInRangeRule from './rules/IsIpInRangeRule';
 
@@ -19,9 +20,8 @@ export default class EdgeRouter extends Router {
     this.switches.push(_switch);
   }
 
-  removeSwitch(_switch: Switch) {
-    this.switches = this.switches.filter(
-      (it) => it.getId() !== _switch.getId(),
-    );
+  removeSwitch(sw: Switch) {
+    new HasNetworkOnSwitch(sw).passOrThrow();
+    this.switches = this.switches.filter((it) => it.getId() !== sw.getId());
   }
 }
