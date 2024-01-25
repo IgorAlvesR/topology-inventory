@@ -78,13 +78,17 @@ test('não deve permitir adicionar mais equipamentos do que a quantidade de port
   );
 });
 
-test('não deve permitir remover um router que tem outros routers conectados', () => {
+test('não deve permitir remover um router que tem outros equipamentos conectados', () => {
   const coreRouter1 = buildCoreRouter1('10.0.0.1', 2);
+  const coreRouter2 = buildCoreRouter2('10.0.0.1');
   const edgeRouter01 = buildEdgeRouter1('10.0.0.1');
+  const edgeRouter02 = buildEdgeRouter1('10.0.0.1');
   const sw1 = buildSwitch();
   coreRouter1.addRouter(edgeRouter01);
+  coreRouter1.addRouter(coreRouter2);
+  coreRouter2.addRouter(edgeRouter02);
   edgeRouter01.addSwitch(sw1);
-  expect(() => coreRouter1.removeRouter(edgeRouter01)).toThrow(
+  expect(() => coreRouter1.removeRouter(coreRouter2)).toThrow(
     'Não é possível remover um roteador que tenha outros equipamentos conectados.',
   );
 });
