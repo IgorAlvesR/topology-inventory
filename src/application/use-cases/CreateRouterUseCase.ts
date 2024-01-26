@@ -1,8 +1,8 @@
 import {
   RouterDTO,
-  RouterGateway,
+  RouterInputPort,
   RouterType,
-} from 'src/interfaceAdapter/RouterGateway';
+} from 'src/application/input-ports/RouterInputPort';
 import CoreRouter from 'src/domain/entities/CoreRouter';
 import Location from 'src/domain/valueObjects/Location';
 import { IP } from 'src/domain/valueObjects/IP';
@@ -20,8 +20,8 @@ type Input = {
   targetRouterId?: RouterType;
 };
 
-export default class CreateRouter {
-  constructor(private routerGateway: RouterGateway) {}
+export default class CreateRouterUseCase {
+  constructor(private routerGateway: RouterInputPort) {}
 
   async execute(input: Input) {
     let router: EdgeRouter | CoreRouter;

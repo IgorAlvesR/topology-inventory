@@ -1,9 +1,12 @@
-import { RouterDTO, RouterGateway } from 'src/interfaceAdapter/RouterGateway';
+import {
+  RouterDTO,
+  RouterInputPort,
+} from 'src/application/input-ports/RouterInputPort';
 import CoreRouter from 'src/domain/entities/CoreRouter';
 import Location from 'src/domain/valueObjects/Location';
 
-export default class RemoveRouter {
-  constructor(private routerGateway: RouterGateway) {}
+export default class RemoveRouterUseCase {
+  constructor(private routerGateway: RouterInputPort) {}
 
   async execute(id: string, targetId?: string) {
     const routerData: RouterDTO = await this.routerGateway.getRouterById(

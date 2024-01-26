@@ -1,5 +1,5 @@
 import Router from 'src/domain/entities/Router';
-import { ID } from '../domain/valueObjects/ID';
+import { ID } from '../../domain/valueObjects/ID';
 import { Model } from 'src/domain/valueObjects/Model';
 import { IP } from 'src/domain/valueObjects/IP';
 
@@ -26,7 +26,7 @@ export class RouterDTO {
   }
 }
 
-export interface RouterGateway {
+export interface RouterInputPort {
   save(router: RouterDTO): Promise<void>;
   remove(id: ID): Promise<void>;
   getRouterById(id: ID): Promise<RouterDTO>;
