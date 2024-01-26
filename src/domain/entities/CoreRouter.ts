@@ -1,3 +1,4 @@
+import { ID } from '../valueObjects/ID';
 import Router from './Router';
 import HasPortsAvailableRule from './rules/HasPortsAvailableRule';
 import IsIpInRangeRule from './rules/IsIpAvailableRule';
@@ -19,8 +20,11 @@ export default class CoreRouter extends Router {
     this.routers.push(router);
   }
 
-  removeRouter(router: Router): void {
-    new HasEquipmentsConnectedToRouterRule(router).passOrThrow();
-    this.routers = this.routers.filter((it) => it.getId() !== router.getId());
+  removeRouter(id: ID): void {
+    const routerToBeRemoved = this.routers.find((it) => it.getId() === id);
+    new HasEquipmentsConnectedToRouterRule(
+      !routerToBeRemoved.getEquipments().length,
+    ).passOrThrow();
+    this.routers = this.routers.filter((it) => it.getId() !== id);
   }
 }

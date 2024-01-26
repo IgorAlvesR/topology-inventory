@@ -23,4 +23,12 @@ export default class Equipment {
   getId(): ID {
     return this.id;
   }
+
+  getLocation() {
+    return this.location;
+  }
+
+  getModel() {
+    return this.model;
+  }
 }

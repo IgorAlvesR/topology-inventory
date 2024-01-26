@@ -1,13 +1,12 @@
-import Router from '../Router';
 import { AbstractRule } from './AbstractRule';
 
 export default class IsRouterEmptyRule extends AbstractRule {
-  constructor(readonly router: Router) {
+  constructor(readonly isRouterEmpty: boolean) {
     super();
   }
 
   isSatisfied(): boolean {
-    return !this.router.getEquipments().length;
+    return this.isRouterEmpty;
   }
 
   protected createError(): Error {

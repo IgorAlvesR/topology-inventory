@@ -88,7 +88,7 @@ test('não deve permitir remover um router que tem outros equipamentos conectado
   coreRouter1.addRouter(coreRouter2);
   coreRouter2.addRouter(edgeRouter02);
   edgeRouter01.addSwitch(sw1);
-  expect(() => coreRouter1.removeRouter(coreRouter2)).toThrow(
+  expect(() => coreRouter1.removeRouter(coreRouter2.getId())).toThrow(
     'Não é possível remover um roteador que tenha outros equipamentos conectados.',
   );
 });
@@ -98,6 +98,6 @@ test('permite remover um roteador que não tenha equipamentos conectados', () =>
   const edgeRouter01 = buildEdgeRouter1('10.0.0.2');
   coreRouter1.addRouter(edgeRouter01);
   expect(coreRouter1.getEquipments()).toHaveLength(1);
-  coreRouter1.removeRouter(edgeRouter01);
+  coreRouter1.removeRouter(edgeRouter01.getId());
   expect(coreRouter1.getEquipments()).toHaveLength(0);
 });
