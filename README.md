@@ -12,8 +12,10 @@
 - npm install: para instalar as dependências
 - npm run test: para rodar os testes
 
-##Autores do projeto
+##Autor do projeto
 - Igor Alves Rodrigues
+
+##Mentor
 - Ingo Schmidt
 
 
