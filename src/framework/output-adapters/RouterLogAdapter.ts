@@ -1,10 +1,10 @@
 import {
   RouterDTO,
-  RouterInputPort,
-} from 'src/application/input-ports/RouterInputPort';
+  RouterOutputPort,
+} from 'src/application/output-ports/RouterOutputPort';
 import { ID } from 'src/domain/valueObjects/ID';
 
-export default class RouterHttpAdapter implements RouterInputPort {
+export default class RouterLogAdapter implements RouterOutputPort {
   getRouterById(id: string): Promise<RouterDTO> {
     return new Promise((resolve) => {
       console.log('buscou no banco', id);

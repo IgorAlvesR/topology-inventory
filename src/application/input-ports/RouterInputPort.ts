@@ -1,33 +1,24 @@
-import Router from 'src/domain/entities/Router';
-import { ID } from '../../domain/valueObjects/ID';
-import { Model } from 'src/domain/valueObjects/Model';
+import { ID } from 'src/domain/valueObjects/ID';
 import { IP } from 'src/domain/valueObjects/IP';
+import { Model } from 'src/domain/valueObjects/Model';
+import { RouterType } from '../output-ports/RouterOutputPort';
 
-export type RouterType = 'core-router' | 'edge-router';
+export type CreateRouterArgs = {
+  id: ID;
+  model: Model;
+  ip: IP;
+  numberOfPorts: number;
+  latitude: number;
+  longitude: number;
+  type: RouterType;
+};
 
-export class RouterDTO {
-  readonly id: ID;
-  readonly model: Model;
-  readonly ip: IP;
-  readonly numberOfPorts: number;
-  readonly latitude: number;
-  readonly longitude: number;
-
-  constructor(
-    private readonly router: Router,
-    readonly type: RouterType,
-  ) {
-    this.id = this.router.getId();
-    this.model = this.router.getModel();
-    this.ip = this.router.getIp();
-    this.latitude = this.router.getLocation().lat;
-    this.longitude = this.router.getLocation().lon;
-    this.numberOfPorts = this.router.getNumberOfPorts();
-  }
-}
+export type RemoveRouterArgs = {
+  id: ID;
+  routerTargetId: ID;
+};
 
 export interface RouterInputPort {
-  save(router: RouterDTO): Promise<void>;
-  remove(id: ID): Promise<void>;
-  getRouterById(id: ID): Promise<RouterDTO>;
+  create(args: CreateRouterArgs): void;
+  remove(args: RemoveRouterArgs): void;
 }
