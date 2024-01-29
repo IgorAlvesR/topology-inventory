@@ -17,17 +17,16 @@ type Input = {
   numberOfPorts: number;
   latitude: number;
   longitude: number;
-  targetRouterId?: RouterType;
+  type: RouterType;
 };
 
 export default class CreateRouterUseCase {
-  constructor(private routerGateway: RouterInputPort) {}
+  constructor(private routerInputPort: RouterInputPort) {}
 
   async execute(input: Input) {
     let router: EdgeRouter | CoreRouter;
-    let routerType: RouterType;
 
-    if (input.targetRouterId) {
+    if (input.type === 'edge-router') {
       router = new EdgeRouter(
         input.id,
         input.model,
@@ -35,7 +34,6 @@ export default class CreateRouterUseCase {
         input.numberOfPorts,
         new Location(input.latitude, input.longitude),
       );
-      routerType = 'edge-router';
     } else {
       router = new CoreRouter(
         input.id,
@@ -44,9 +42,8 @@ export default class CreateRouterUseCase {
         input.numberOfPorts,
         new Location(input.latitude, input.longitude),
       );
-      routerType = 'core-router';
     }
-    const routerDTO = new RouterDTO(router, routerType);
-    await this.routerGateway.save(routerDTO);
+    const routerDTO = new RouterDTO(router, input.type);
+    await this.routerInputPort.save(routerDTO);
   }
 }

@@ -5,21 +5,25 @@ import {
 import CoreRouter from 'src/domain/entities/CoreRouter';
 import Location from 'src/domain/valueObjects/Location';
 
-export default class RemoveRouterUseCase {
-  constructor(private routerGateway: RouterInputPort) {}
+type Input = {
+  id: string;
+  routerTargetId: string;
+};
 
-  async execute(id: string, targetId?: string) {
-    const routerData: RouterDTO = await this.routerGateway.getRouterById(
-      targetId || id,
-    );
+export default class RemoveRouterUseCase {
+  constructor(private routerInputPort: RouterInputPort) {}
+
+  async execute(input: Input) {
+    const targetRouterData: RouterDTO =
+      await this.routerInputPort.getRouterById(input.routerTargetId);
     const coreRouter = new CoreRouter(
-      routerData.id,
-      routerData.model,
-      routerData.ip,
-      routerData.numberOfPorts,
-      new Location(routerData.latitude, routerData.longitude),
+      targetRouterData.id,
+      targetRouterData.model,
+      targetRouterData.ip,
+      targetRouterData.numberOfPorts,
+      new Location(targetRouterData.latitude, targetRouterData.longitude),
     );
-    coreRouter.removeRouter(id);
-    await this.routerGateway.remove(id);
+    coreRouter.removeRouter(input.id);
+    await this.routerInputPort.remove(input.id);
   }
 }
