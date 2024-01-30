@@ -10,6 +10,7 @@ import { Request } from 'express';
 import { type } from 'os';
 import {
   CreateRouterArgs,
+  RemoveRouterArgs,
   RouterInputPort,
 } from 'src/application/input-ports/RouterInputPort';
 
@@ -20,10 +21,10 @@ export class RouterInputAdapter {
     private readonly routerInputPort: RouterInputPort,
   ) {}
 
-  @Post()
-  async create(@Req() request: Request): Promise<string> {
+  @Post('/create')
+  async create(@Req() req: Request): Promise<string> {
     const { id, model, ip, numberOfPorts, latitude, longitude, type } =
-      request.body;
+      req.body;
 
     const args: CreateRouterArgs = {
       id,
@@ -38,9 +39,17 @@ export class RouterInputAdapter {
     if (!this.isValidCreateArgs(args)) {
       throw new HttpException('Argumentos inválidos!', HttpStatus.BAD_REQUEST);
     }
-
+    //SERIA UM BOM LUGAR PARA COLOCAR UM TRY CATCH E MOSTRAR O ERRO
     await this.routerInputPort.create(args);
     return 'Router created successfully';
+  }
+
+  @Post('/remove')
+  async remove(@Req() req: Request): Promise<string> {
+    const { id } = req.body;
+    const args: RemoveRouterArgs = { id };
+    await this.routerInputPort.remove(args);
+    return 'Roteador removido com sucesso.';
   }
 
   private isValidCreateArgs(args: CreateRouterArgs): boolean {

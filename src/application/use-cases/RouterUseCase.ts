@@ -36,16 +36,59 @@ export default class RouterUseCase implements RouterInputPort {
   }
 
   async remove(args: RemoveRouterArgs): Promise<void> {
-    const targetRouterData: RouterDTO =
-      await this.routerOutputPort.getRouterById(args.routerTargetId);
+    const routerToBeRemoved = await this.routerOutputPort.getRouterById(
+      args.id,
+    );
+
+    if (!routerToBeRemoved) {
+      throw new Error('Não foi possível encontrar esse roteador.');
+    }
+    const routerInstance = this.getInstanceRouter(routerToBeRemoved);
+    const hasEquipment = !!routerInstance.getEquipments().length;
+    if (hasEquipment) {
+      throw new Error(
+        'Não foi possível remover roteador com equipamentos conectados.',
+      );
+    }
+    const parentRouterId = await this.routerOutputPort.getParentRouterId(
+      args.id,
+    );
+    if (!parentRouterId) {
+      await this.routerOutputPort.remove(args.id);
+      return;
+    }
     const coreRouter = new CoreRouter(
-      targetRouterData.id,
-      targetRouterData.model,
-      targetRouterData.ip,
-      targetRouterData.numberOfPorts,
-      new Location(targetRouterData.latitude, targetRouterData.longitude),
+      parentRouterId.id,
+      parentRouterId.model,
+      parentRouterId.ip,
+      parentRouterId.numberOfPorts,
+      new Location(parentRouterId.latitude, parentRouterId.longitude),
     );
     coreRouter.removeRouter(args.id);
+    const routerDTO = new RouterDTO(coreRouter, 'core-router');
     await this.routerOutputPort.remove(args.id);
+    await this.routerOutputPort.save(routerDTO);
+  }
+
+  private getInstanceRouter(router: RouterDTO): CoreRouter | EdgeRouter {
+    if (router.type === 'edge-router') {
+      return new EdgeRouter(
+        router.id,
+        router.model,
+        router.ip,
+        router.numberOfPorts,
+        new Location(router.latitude, router.longitude),
+      );
+    }
+
+    if (router.type === 'core-router') {
+      return new CoreRouter(
+        router.id,
+        router.model,
+        router.ip,
+        router.numberOfPorts,
+        new Location(router.latitude, router.longitude),
+      );
+    }
   }
 }

@@ -30,4 +30,5 @@ export interface RouterOutputPort {
   save(router: RouterDTO): Promise<void>;
   remove(id: ID): Promise<void>;
   getRouterById(id: ID): Promise<RouterDTO>;
+  getParentRouterId(id: ID): Promise<RouterDTO>;
 }

@@ -15,7 +15,6 @@ export type CreateRouterArgs = {
 
 export type RemoveRouterArgs = {
   id: ID;
-  routerTargetId: ID;
 };
 
 export interface RouterInputPort {

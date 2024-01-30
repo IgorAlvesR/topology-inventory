@@ -23,7 +23,7 @@ export default class CoreRouter extends Router {
   removeRouter(id: ID): void {
     const routerToBeRemoved = this.routers.find((it) => it.getId() === id);
     new HasEquipmentsConnectedToRouterRule(
-      !routerToBeRemoved.getEquipments().length,
+      !routerToBeRemoved?.getEquipments().length,
     ).passOrThrow();
     this.routers = this.routers.filter((it) => it.getId() !== id);
   }
