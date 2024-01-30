@@ -11,7 +11,7 @@ import {
 export default class RouterUseCase implements RouterInputPort {
   constructor(private routerOutputPort: RouterOutputPort) {}
 
-  async create(args: CreateRouterArgs) {
+  async create(args: CreateRouterArgs): Promise<void> {
     let router: EdgeRouter | CoreRouter;
 
     if (args.type === 'edge-router') {
@@ -22,7 +22,7 @@ export default class RouterUseCase implements RouterInputPort {
         args.numberOfPorts,
         new Location(args.latitude, args.longitude),
       );
-    } else {
+    } else if (args.type === 'core-router') {
       router = new CoreRouter(
         args.id,
         args.model,
@@ -35,7 +35,7 @@ export default class RouterUseCase implements RouterInputPort {
     await this.routerOutputPort.save(routerDTO);
   }
 
-  async remove(args: RemoveRouterArgs) {
+  async remove(args: RemoveRouterArgs): Promise<void> {
     const targetRouterData: RouterDTO =
       await this.routerOutputPort.getRouterById(args.routerTargetId);
     const coreRouter = new CoreRouter(

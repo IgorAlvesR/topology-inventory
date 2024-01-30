@@ -19,6 +19,6 @@ export type RemoveRouterArgs = {
 };
 
 export interface RouterInputPort {
-  create(args: CreateRouterArgs): void;
-  remove(args: RemoveRouterArgs): void;
+  create(args: CreateRouterArgs): Promise<void>;
+  remove(args: RemoveRouterArgs): Promise<void>;
 }
