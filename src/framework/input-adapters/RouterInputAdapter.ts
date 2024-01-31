@@ -7,7 +7,6 @@ import {
   Req,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { type } from 'os';
 import {
   CreateRouterArgs,
   RemoveRouterArgs,
@@ -23,6 +22,7 @@ export class RouterInputAdapter {
 
   @Post('/create')
   async create(@Req() req: Request): Promise<string> {
+    console.log('AA', req);
     const { id, model, ip, numberOfPorts, latitude, longitude, type } =
       req.body;
 
@@ -63,7 +63,7 @@ export class RouterInputAdapter {
       !!args.numberOfPorts &&
       !!args.latitude &&
       !!args.longitude &&
-      !!type;
+      !!args.type;
 
     if (
       !existsAllArgs ||

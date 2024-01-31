@@ -12,6 +12,7 @@ export class RouterDTO {
   readonly numberOfPorts: number;
   readonly latitude: number;
   readonly longitude: number;
+  readonly equipmentsId: ID[] = [];
 
   constructor(
     private readonly router: Router,
@@ -23,6 +24,7 @@ export class RouterDTO {
     this.latitude = this.router.getLocation().lat;
     this.longitude = this.router.getLocation().lon;
     this.numberOfPorts = this.router.getNumberOfPorts();
+    this.equipmentsId = this.router.getEquipments().map((it) => it.getId());
   }
 }
 

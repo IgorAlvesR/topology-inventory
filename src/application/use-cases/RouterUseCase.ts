@@ -31,6 +31,7 @@ export default class RouterUseCase implements RouterInputPort {
         new Location(args.latitude, args.longitude),
       );
     }
+
     const routerDTO = new RouterDTO(router, args.type);
     await this.routerOutputPort.save(routerDTO);
   }
